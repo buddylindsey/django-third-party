@@ -1,0 +1,7 @@
+Django>=1.8.0
+Fabric
+django-extensions
+django-nose
+model-mommy
+nose
+six

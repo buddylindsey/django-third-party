@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import CustomContent
 
 
-class CustomJavascriptAdmin(admin.ModelAdmin):
+class CustomContentAdmin(admin.ModelAdmin):
     list_display = ('title', 'path', 'active')
     list_filter = ('active', 'exact_match', 'partial_match')
     fieldsets = (
@@ -24,4 +24,4 @@ class CustomJavascriptAdmin(admin.ModelAdmin):
     actions = (activate, deactivate)
 
 
-admin.site.register(CustomJavascript, CustomJavascriptAdmin)
+admin.site.register(CustomContent, CustomContentAdmin)

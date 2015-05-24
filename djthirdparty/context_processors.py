@@ -1,6 +1,6 @@
 import re
 
-from dj_thirdparty.models import CustomContent
+from djthirdparty.models import CustomContent
 
 
 __all__ = ['custom_content']

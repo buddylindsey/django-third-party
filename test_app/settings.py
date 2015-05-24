@@ -24,7 +24,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_nose',
     'django_extensions',
-    'dj_thirdparty',
+    'djthirdparty',
 )
 
 MIDDLEWARE_CLASSES = (

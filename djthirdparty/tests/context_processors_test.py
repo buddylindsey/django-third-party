@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from model_mommy import mommy
 
-from dj_thirdparty.context_processors import custom_content, fetch_objects
+from djthirdparty.context_processors import custom_content, fetch_objects
 
 
 class CustomContentContextProcessor(TestCase):
@@ -21,7 +21,7 @@ class CustomContentContextProcessor(TestCase):
         js = "alert('hello world');"
 
         mommy.make(
-            'dj_thirdparty.CustomContent', active=True, javascript=js,
+            'djthirdparty.CustomContent', active=True, javascript=js,
             path="/")
 
         self.assertEqual(
@@ -31,7 +31,7 @@ class CustomContentContextProcessor(TestCase):
         js = "alert('hello world');"
 
         mommy.make(
-            'dj_thirdparty.CustomContent', active=False, javascript=js,
+            'djthirdparty.CustomContent', active=False, javascript=js,
             path="/")
 
         self.assertEqual(
@@ -39,25 +39,25 @@ class CustomContentContextProcessor(TestCase):
 
     def test_fetch_objects(self):
         self.maxDiff = 2056
-        cj1 = mommy.make('dj_thirdparty.CustomContent', path='all')
+        cj1 = mommy.make('djthirdparty.CustomContent', path='all')
         cj2 = mommy.make(
-            'dj_thirdparty.CustomContent', path='/other/misc/',
+            'djthirdparty.CustomContent', path='/other/misc/',
             exact_match=True)
         cj3 = mommy.make(
-            'dj_thirdparty.CustomContent', path='/homeservice/',
+            'djthirdparty.CustomContent', path='/homeservice/',
             partial_match=True, exact_match=False)
         cj4 = mommy.make(
-            'dj_thirdparty.CustomContent', path='/', exact_match=True)
+            'djthirdparty.CustomContent', path='/', exact_match=True)
         cj5 = mommy.make(
-            'dj_thirdparty.CustomContent', path='all', header=True)
+            'djthirdparty.CustomContent', path='all', header=True)
         cj6 = mommy.make(
-            'dj_thirdparty.CustomContent', path='/other/',
+            'djthirdparty.CustomContent', path='/other/',
             exact_match=True, header=True)
         cj7 = mommy.make(
-            'dj_thirdparty.CustomContent', path='/homes/',
+            'djthirdparty.CustomContent', path='/homes/',
             partial_match=True, exact_match=False, header=True)
         cj8 = mommy.make(
-            'dj_thirdparty.CustomContent', path='/', exact_match=True,
+            'djthirdparty.CustomContent', path='/', exact_match=True,
             header=True)
 
         data = {'all_urls': {'header': [cj5], 'footer': [cj1]},
@@ -68,18 +68,18 @@ class CustomContentContextProcessor(TestCase):
 
     def test_get_exact(self):
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='/')
+            'djthirdparty.CustomContent', javascript='text1', path='/')
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text2', path='/other/')
+            'djthirdparty.CustomContent', javascript='text2', path='/other/')
 
         self.assertEqual(
             custom_content(self.request)['custom_javascript_footer'], 'text1')
 
     def test_get_exact_no_match(self):
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='/other1/')
+            'djthirdparty.CustomContent', javascript='text1', path='/other1/')
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text2', path='/other2/')
+            'djthirdparty.CustomContent', javascript='text2', path='/other2/')
 
         self.assertEqual(
             custom_content(self.request)['custom_javascript_footer'], '')
@@ -88,7 +88,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='^/other/',
+            'djthirdparty.CustomContent', javascript='text1', path='^/other/',
             exact_match=False, partial_match=True)
 
         self.assertEqual(
@@ -98,7 +98,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/misc/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='^/other/',
+            'djthirdparty.CustomContent', javascript='text1', path='^/other/',
             exact_match=False, partial_match=True)
 
         self.assertEqual(
@@ -108,7 +108,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/home/other/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='^/home/')
+            'djthirdparty.CustomContent', javascript='text1', path='^/home/')
 
         self.assertEqual(
             custom_content(request)['custom_javascript_footer'], '')
@@ -117,17 +117,17 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='^/misc/')
+            'djthirdparty.CustomContent', javascript='text1', path='^/misc/')
 
         self.assertEqual(
             custom_content(request)['custom_javascript_footer'], '')
 
     def test_get_exact_header(self):
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='/',
+            'djthirdparty.CustomContent', javascript='text1', path='/',
             header=True)
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text2', path='/other/',
+            'djthirdparty.CustomContent', javascript='text2', path='/other/',
             header=True)
 
         self.assertEqual(
@@ -136,10 +136,10 @@ class CustomContentContextProcessor(TestCase):
 
     def test_get_exact_no_match_header(self):
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='/other/',
+            'djthirdparty.CustomContent', javascript='text1', path='/other/',
             header=True)
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text2', path='/misc/',
+            'djthirdparty.CustomContent', javascript='text2', path='/misc/',
             header=True)
 
         self.assertEqual(
@@ -149,7 +149,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='^/other/',
+            'djthirdparty.CustomContent', javascript='text1', path='^/other/',
             exact_match=False, partial_match=True, header=True)
 
         self.assertEqual(
@@ -159,7 +159,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/misc/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1', path='^/other/',
+            'djthirdparty.CustomContent', javascript='text1', path='^/other/',
             exact_match=False, partial_match=True, header=True)
 
         self.assertEqual(
@@ -169,7 +169,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/misc/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1',
+            'djthirdparty.CustomContent', javascript='text1',
             path='^/other/', header=True)
 
         self.assertEqual(
@@ -179,7 +179,7 @@ class CustomContentContextProcessor(TestCase):
         request = RequestFactory().get('/other/')
 
         mommy.make(
-            'dj_thirdparty.CustomContent', javascript='text1',
+            'djthirdparty.CustomContent', javascript='text1',
             path='^/misc/', header=True)
 
         self.assertEqual(

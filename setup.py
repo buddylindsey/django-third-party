@@ -10,7 +10,7 @@ setup(
     author_email='buddy@buddylindsey.com',
     url='https://github.com/buddylindsey/django-third-party',
     packages=[
-        'dj_thirdparty', 'dj_thirdparty.migrations'],
+        'djthirdparty', 'djthirdparty.migrations'],
     install_requires=[
         'Django>=1.8', 'six', 'django_extensions'],
     classifiers=[

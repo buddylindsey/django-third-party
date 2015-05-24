@@ -11,7 +11,7 @@ from fabric.api import local as _local
 
 NAME = os.path.basename(os.path.dirname(__file__))
 ROOT = os.path.abspath(os.path.dirname(__file__))
-APP_NAME = 'dj_thirdparty'
+APP_NAME = 'djthirdparty'
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'test_app.settings'
 os.environ['PYTHONPATH'] = os.pathsep.join([ROOT, ])
